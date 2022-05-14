@@ -1,9 +1,9 @@
 package com.eleks.academy.whoami.repository;
 
-import com.eleks.academy.whoami.core.Game;
-
 import java.util.Optional;
 import java.util.stream.Stream;
+
+import com.eleks.academy.whoami.core.Game;
 
 public interface GameRepository {
 

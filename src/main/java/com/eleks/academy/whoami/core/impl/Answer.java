@@ -5,8 +5,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Extend this class in case more input is needed
- * for a specific {@link com.eleks.academy.whoami.core.state.GameState}
+ * Extend this class in case more input is needed for a specific
+ * {@link com.eleks.academy.whoami.core.state.GameState}
  */
 @Getter
 @AllArgsConstructor

@@ -19,8 +19,8 @@ public sealed interface GameState permits AbstractGameState {
 	/**
 	 * Used for presentation purposes only
 	 *
-	 * @return a player, whose turn is now
-	 * or {@code null} if state does not take turns (e.g. {@link SuggestingCharacters})
+	 * @return a player, whose turn is now or {@code null} if state does not take
+	 *         turns (e.g. {@link SuggestingCharacters})
 	 */
 	String getCurrentTurn();
 
@@ -46,8 +46,7 @@ public sealed interface GameState permits AbstractGameState {
 	Integer getMaxPlayers();
 
 	static GameState start(String player, Integer maxPlayers) {
-		return new WaitingForPlayers(maxPlayers)
-				.makeTurn(new Answer(player));
+		return new WaitingForPlayers(maxPlayers).makeTurn(new Answer(player));
 	}
 
 }

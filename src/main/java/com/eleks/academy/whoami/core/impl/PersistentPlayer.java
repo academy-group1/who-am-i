@@ -1,8 +1,8 @@
 package com.eleks.academy.whoami.core.impl;
 
-import com.eleks.academy.whoami.core.Player;
-
 import java.util.concurrent.Future;
+
+import com.eleks.academy.whoami.core.Player;
 
 public record PersistentPlayer(String name) implements Player {
 

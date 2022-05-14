@@ -1,6 +1,7 @@
 package com.eleks.academy.whoami.model.response;
 
 import com.eleks.academy.whoami.core.Game;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,11 +20,8 @@ public class GameLight {
 	private String playersInGame;
 
 	public static GameLight of(Game game) {
-		return GameLight.builder()
-				.id(game.getId())
-				.status(game.getStatus())
-				.playersInGame(game.getPlayersInGame())
-				.build();
+		return GameLight.builder().id(game.getId()).status(game.getStatus()).playersInGame(game.getPlayersInGame())
+		        .build();
 	}
 
 }

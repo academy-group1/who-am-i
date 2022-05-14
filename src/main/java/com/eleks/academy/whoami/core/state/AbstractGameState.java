@@ -5,8 +5,8 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public abstract sealed class AbstractGameState implements GameState
-		permits SuggestingCharacters, WaitingForPlayers, ProcessingQuestion {
+public abstract sealed class AbstractGameState
+        implements GameState permits SuggestingCharacters, WaitingForPlayers, ProcessingQuestion {
 
 	private final Integer playersInGame;
 	private final Integer maxPlayers;

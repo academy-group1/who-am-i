@@ -1,6 +1,7 @@
 package com.eleks.academy.whoami.core.impl;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -20,10 +21,7 @@ class RandomGameTest {
 		TestPlayer p2 = new TestPlayer("P2");
 		Game game = new RandomGame(List.of(p1, p2), List.of("c"));
 		game.initGame();
-		assertAll(new Executable[] {
-				() -> assertTrue(p1.suggested),
-				() -> assertTrue(p2.suggested),
-		});
+		assertAll(new Executable[] { () -> assertTrue(p1.suggested), () -> assertTrue(p2.suggested), });
 	}
 
 	private static final class TestPlayer implements Player {
@@ -74,9 +72,9 @@ class RandomGameTest {
 		@Override
 		public void close() {
 			// TODO Auto-generated method stub
-			
+
 		}
-		
+
 	}
 
 }

@@ -1,12 +1,12 @@
 package com.eleks.academy.whoami.service;
 
+import java.util.List;
+import java.util.Optional;
+
 import com.eleks.academy.whoami.model.request.CharacterSuggestion;
 import com.eleks.academy.whoami.model.request.NewGameRequest;
 import com.eleks.academy.whoami.model.response.GameDetails;
 import com.eleks.academy.whoami.model.response.GameLight;
-
-import java.util.List;
-import java.util.Optional;
 
 public interface GameService {
 

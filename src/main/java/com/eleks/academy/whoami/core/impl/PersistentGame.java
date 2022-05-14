@@ -1,9 +1,5 @@
 package com.eleks.academy.whoami.core.impl;
 
-import com.eleks.academy.whoami.core.Game;
-import com.eleks.academy.whoami.core.state.GameState;
-import com.eleks.academy.whoami.core.state.WaitingForPlayers;
-
 import java.time.Instant;
 import java.util.Optional;
 import java.util.Queue;
@@ -11,6 +7,10 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Function;
+
+import com.eleks.academy.whoami.core.Game;
+import com.eleks.academy.whoami.core.state.GameState;
+import com.eleks.academy.whoami.core.state.WaitingForPlayers;
 
 public class PersistentGame implements Game {
 
@@ -21,15 +21,13 @@ public class PersistentGame implements Game {
 	private final Queue<GameState> turns = new LinkedBlockingQueue<>();
 
 	/**
-	 * Creates a new game (game room) and makes a first enrolment turn by a current player
-	 * so that he won't have to enroll to the game he created
+	 * Creates a new game (game room) and makes a first enrolment turn by a current
+	 * player so that he won't have to enroll to the game he created
 	 *
 	 * @param hostPlayer player to initiate a new game
 	 */
 	public PersistentGame(String hostPlayer, Integer maxPlayers) {
-		this.id = String.format("%d-%d",
-				Instant.now().toEpochMilli(),
-				Double.valueOf(Math.random() * 999).intValue());
+		this.id = String.format("%d-%d", Instant.now().toEpochMilli(), Double.valueOf(Math.random() * 999).intValue());
 
 		this.turns.add(GameState.start(hostPlayer, maxPlayers));
 	}
@@ -39,15 +37,15 @@ public class PersistentGame implements Game {
 		return this.id;
 	}
 
-	// TODO: Implement an exit mechanism (separate response) in case {@code this.turns} is empty
+	// TODO: Implement an exit mechanism (separate response) in case {@code
+	// this.turns} is empty
 	@Override
 	public void makeTurn(Answer answer) {
 		this.turnLock.lock();
 
 		try {
-			Optional.ofNullable(this.turns.poll())
-					.map(gameState -> gameState.makeTurn(answer))
-					.ifPresent(this.turns::add);
+			Optional.ofNullable(this.turns.poll()).map(gameState -> gameState.makeTurn(answer))
+			        .ifPresent(this.turns::add);
 		} finally {
 			this.turnLock.unlock();
 		}
@@ -75,8 +73,8 @@ public class PersistentGame implements Game {
 
 	@Override
 	public String getPlayersInGame() {
-		Function<GameState, String> playersCountExtractor = gameState ->
-				"%d/%d".formatted(gameState.getPlayersInGame(), gameState.getMaxPlayers());
+		Function<GameState, String> playersCountExtractor = gameState -> "%d/%d".formatted(gameState.getPlayersInGame(),
+		        gameState.getMaxPlayers());
 
 		return this.applyIfPresent(this.turns.peek(), playersCountExtractor);
 	}
@@ -90,7 +88,6 @@ public class PersistentGame implements Game {
 	// TODO: Guesses, answer
 	// TODO: Game finished game
 	// TODO: Drop unused methods
-
 
 	@Override
 	public boolean makeTurn() {
@@ -117,8 +114,6 @@ public class PersistentGame implements Game {
 	}
 
 	private <T, R> R applyIfPresent(T source, Function<T, R> mapper, R fallback) {
-		return Optional.ofNullable(source)
-				.map(mapper)
-				.orElse(fallback);
+		return Optional.ofNullable(source).map(mapper).orElse(fallback);
 	}
 }

@@ -60,22 +60,21 @@ public class ClientPlayer implements Player, AutoCloseable {
 	@Override
 	public String answerQuestion(String question, String character) {
 		String answer = "";
-		
+
 		try {
-			writer.println("Answer second player question: " + question + "Character is:"+ character);
+			writer.println("Answer second player question: " + question + "Character is:" + character);
 			answer = reader.readLine();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		return answer;
 	}
 
 	@Override
 	public String getGuess() {
 		String answer = "";
-		
-	
+
 		try {
 			writer.println("Write your guess: ");
 			answer = reader.readLine();
@@ -89,21 +88,21 @@ public class ClientPlayer implements Player, AutoCloseable {
 	@Override
 	public boolean isReadyForGuess() {
 		String answer = "";
-		
+
 		try {
 			writer.println("Are you ready to guess? ");
 			answer = reader.readLine();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		return answer.equals("Yes") ? true : false;
 	}
 
 	@Override
 	public String answerGuess(String guess, String character) {
 		String answer = "";
-		
+
 		try {
 			writer.println("Write your answer: ");
 			answer = reader.readLine();
@@ -140,7 +139,7 @@ public class ClientPlayer implements Player, AutoCloseable {
 		close(reader);
 		close(socket);
 	}
-	
+
 	private void close(AutoCloseable closeable) {
 		try {
 			closeable.close();

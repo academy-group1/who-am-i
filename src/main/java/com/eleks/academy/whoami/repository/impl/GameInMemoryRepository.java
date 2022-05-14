@@ -1,14 +1,15 @@
 package com.eleks.academy.whoami.repository.impl;
 
-import com.eleks.academy.whoami.core.Game;
-import com.eleks.academy.whoami.repository.GameRepository;
-import org.springframework.stereotype.Repository;
-
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
+
+import org.springframework.stereotype.Repository;
+
+import com.eleks.academy.whoami.core.Game;
+import com.eleks.academy.whoami.repository.GameRepository;
 
 @Repository
 public class GameInMemoryRepository implements GameRepository {
@@ -19,12 +20,9 @@ public class GameInMemoryRepository implements GameRepository {
 	public Stream<Game> findAllAvailable(String player) {
 		Predicate<Game> freeToJoin = Game::isAvailable;
 
-		Predicate<Game> playersGame = game ->
-				game.hasPlayer(player);
+		Predicate<Game> playersGame = game -> game.hasPlayer(player);
 
-		return this.games.values()
-				.stream()
-				.filter(freeToJoin.or(playersGame));
+		return this.games.values().stream().filter(freeToJoin.or(playersGame));
 	}
 
 	@Override

@@ -1,9 +1,9 @@
 package com.eleks.academy.whoami.core.state;
 
+import java.util.Map;
+
 import com.eleks.academy.whoami.core.exception.GameException;
 import com.eleks.academy.whoami.core.impl.Answer;
-
-import java.util.Map;
 
 // TODO: Implement makeTurn(...) and next() methods, pass a turn to next player
 public final class ProcessingQuestion extends AbstractGameState {
@@ -16,10 +16,7 @@ public final class ProcessingQuestion extends AbstractGameState {
 
 		this.playerCharacterMap = playerCharacterMap;
 
-		this.currentPlayer = playerCharacterMap.keySet()
-				.stream()
-				.findAny()
-				.orElse(null);
+		this.currentPlayer = playerCharacterMap.keySet().stream().findAny().orElse(null);
 	}
 
 	@Override

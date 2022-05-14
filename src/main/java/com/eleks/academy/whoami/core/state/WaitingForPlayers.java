@@ -1,15 +1,15 @@
 package com.eleks.academy.whoami.core.state;
 
-import com.eleks.academy.whoami.core.Player;
-import com.eleks.academy.whoami.core.exception.GameException;
-import com.eleks.academy.whoami.core.impl.Answer;
-import com.eleks.academy.whoami.core.impl.PersistentPlayer;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+
+import com.eleks.academy.whoami.core.Player;
+import com.eleks.academy.whoami.core.exception.GameException;
+import com.eleks.academy.whoami.core.impl.Answer;
+import com.eleks.academy.whoami.core.impl.PersistentPlayer;
 
 public final class WaitingForPlayers extends AbstractGameState {
 
@@ -35,20 +35,13 @@ public final class WaitingForPlayers extends AbstractGameState {
 		this.lock.lock();
 
 		try {
-			Optional.of(this.players)
-					.filter(map -> map.size() < this.maxPlayers)
-					.filter(map -> !map.containsKey(answer.getPlayer()))
-					.ifPresentOrElse(
-							map -> map.put(answer.getPlayer(), new PersistentPlayer(answer.getPlayer())),
-							() -> {
-								throw new GameException("Cannot enroll to the game");
-							}
-					);
+			Optional.of(this.players).filter(map -> map.size() < this.maxPlayers)
+			        .filter(map -> !map.containsKey(answer.getPlayer())).ifPresentOrElse(
+			                map -> map.put(answer.getPlayer(), new PersistentPlayer(answer.getPlayer())), () -> {
+				                throw new GameException("Cannot enroll to the game");
+			                });
 
-			return Optional.of(this)
-					.filter(WaitingForPlayers::finished)
-					.map(WaitingForPlayers::next)
-					.orElse(this);
+			return Optional.of(this).filter(WaitingForPlayers::finished).map(WaitingForPlayers::next).orElse(this);
 		} finally {
 			this.lock.unlock();
 		}
