@@ -1,5 +1,8 @@
 package com.eleks.academy.whoami.networking.client;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetAddress;
@@ -13,13 +16,10 @@ import java.util.concurrent.TimeoutException;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class ClientPlayerIT {
 
 	@Test
-	void clientReadsCharacterFromSocket()
-	        throws IOException, InterruptedException, ExecutionException, TimeoutException {
+	void clientReadsCharacterFromSocket() throws IOException, InterruptedException, ExecutionException, TimeoutException {
 		InetAddress localHost = InetAddress.getLocalHost();
 		int port = randomPort();
 
@@ -30,16 +30,18 @@ class ClientPlayerIT {
 
 			new Thread(() -> {
 				try (Socket client = new Socket(localHost, port);
-				        PrintWriter writer = new PrintWriter(client.getOutputStream())) {
+					 PrintWriter writer = new PrintWriter(client.getOutputStream())) {
 					writer.println("test character");
 					writer.flush();
 					clientReady.countDown();
 				} catch (IOException e) {
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}).start();
 
-			try (Socket client = server.accept(); ClientPlayer player = new ClientPlayer(client)) {
+			try (Socket client = server.accept();
+				 ClientPlayer player = new ClientPlayer(client)) {
 				// TODO: refactor test to always fail after 5 seconds
 				boolean success = clientReady.await(5, TimeUnit.SECONDS);
 				assertTrue(success);
@@ -50,8 +52,7 @@ class ClientPlayerIT {
 	}
 
 	@Test
-	void clientReadsPlayersNameFromSocket()
-	        throws IOException, InterruptedException, ExecutionException, TimeoutException {
+	void clientReadsPlayersNameFromSocket() throws IOException, InterruptedException, ExecutionException, TimeoutException {
 		InetAddress localHost = InetAddress.getLocalHost();
 		int port = randomPort();
 
@@ -63,7 +64,7 @@ class ClientPlayerIT {
 
 			new Thread(() -> {
 				try (Socket client = new Socket(localHost, port);
-				        PrintWriter writer = new PrintWriter(client.getOutputStream())) {
+					 PrintWriter writer = new PrintWriter(client.getOutputStream())) {
 					clientReady.countDown();
 					writer.println("Player");
 					writer.flush();
@@ -76,7 +77,8 @@ class ClientPlayerIT {
 				}
 			}).start();
 
-			try (Socket client = server.accept(); ClientPlayer player = new ClientPlayer(client)) {
+			try (Socket client = server.accept();
+				 ClientPlayer player = new ClientPlayer(client)) {
 				// TODO: refactor test to always fail after 5 seconds
 				boolean success = clientReady.await(5, TimeUnit.SECONDS);
 				assertTrue(success);

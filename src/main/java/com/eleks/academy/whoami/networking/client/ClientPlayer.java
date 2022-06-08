@@ -1,16 +1,13 @@
 package com.eleks.academy.whoami.networking.client;
 
+import com.eleks.academy.whoami.core.Player;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-
-import com.eleks.academy.whoami.core.Player;
+import java.util.concurrent.*;
 
 public class ClientPlayer implements Player, AutoCloseable {
 
@@ -28,8 +25,7 @@ public class ClientPlayer implements Player, AutoCloseable {
 
 	@Override
 	public Future<String> getName() {
-		// TODO: save name for future
-		return executor.submit(this::askName);
+			return executor.submit(this::askName);
 	}
 
 	private String askName() {
@@ -44,8 +40,7 @@ public class ClientPlayer implements Player, AutoCloseable {
 		return name;
 	}
 
-	@Override
-	public String getQuestion() {
+	public String doGetQuestion() {
 		String question = "";
 
 		try {
@@ -57,8 +52,7 @@ public class ClientPlayer implements Player, AutoCloseable {
 		return question;
 	}
 
-	@Override
-	public String answerQuestion(String question, String character) {
+	public String doAnswerQuestion(String question, String character) {
 		String answer = "";
 
 		try {
@@ -71,9 +65,9 @@ public class ClientPlayer implements Player, AutoCloseable {
 		return answer;
 	}
 
-	@Override
-	public String getGuess() {
+	public String doGetGuess() {
 		String answer = "";
+
 
 		try {
 			writer.println("Write your guess: ");
@@ -85,8 +79,7 @@ public class ClientPlayer implements Player, AutoCloseable {
 		return answer;
 	}
 
-	@Override
-	public boolean isReadyForGuess() {
+	public Boolean doReadyForGuess() {
 		String answer = "";
 
 		try {
@@ -96,11 +89,10 @@ public class ClientPlayer implements Player, AutoCloseable {
 			e.printStackTrace();
 		}
 
-		return answer.equals("Yes") ? true : false;
+		return answer.equals("Yes");
 	}
 
-	@Override
-	public String answerGuess(String guess, String character) {
+	public String doAnswerGuess(String guess, String character) {
 		String answer = "";
 
 		try {
@@ -116,6 +108,31 @@ public class ClientPlayer implements Player, AutoCloseable {
 	@Override
 	public Future<String> suggestCharacter() {
 		return executor.submit(this::doSuggestCharacter);
+	}
+
+	@Override
+	public Future<String> getQuestion() {
+		return executor.submit(this::doGetQuestion);
+	}
+
+	@Override
+	public Future<String> answerQuestion(String question, String character) {
+		return executor.submit(() -> this.doAnswerQuestion(question, character));
+	}
+
+	@Override
+	public Future<String> getGuess() {
+		return executor.submit(this::doGetGuess);
+	}
+
+	@Override
+	public Future<Boolean> isReadyForGuess() {
+		return executor.submit(this::doReadyForGuess);
+	}
+
+	@Override
+	public Future<String> answerGuess(String guess, String character) {
+		return executor.submit(() -> this.doAnswerGuess(guess, character));
 	}
 
 	private String doSuggestCharacter() {

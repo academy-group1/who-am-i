@@ -1,8 +1,10 @@
 package com.eleks.academy.whoami.core;
 
+import java.util.concurrent.Future;
+
 public interface SynchronousPlayer {
 
-	String getName();
+	Future<String> getName();
 
 	String getCharacter();
 

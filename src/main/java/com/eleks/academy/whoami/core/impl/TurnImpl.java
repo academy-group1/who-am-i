@@ -1,14 +1,13 @@
 package com.eleks.academy.whoami.core.impl;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.eleks.academy.whoami.core.Player;
 import com.eleks.academy.whoami.core.Turn;
 
 public class TurnImpl implements Turn {
 
-	private List<Player> players;
+	private final List<Player> players;
 	private int currentPlayerIndex = 0;
 
 	public TurnImpl(List<Player> players) {
@@ -22,13 +21,16 @@ public class TurnImpl implements Turn {
 
 	@Override
 	public List<Player> getOtherPlayers() {
-		return this.players.stream().filter(player -> !player.getName().equals(this.getGuesser().getName()))
-		        .collect(Collectors.toList());
+		return this.players.stream()
+				.filter(player -> !player.getName().equals(this.getGuesser().getName()))
+				.toList();
 	}
 
 	@Override
 	public void changeTurn() {
 		this.currentPlayerIndex = this.currentPlayerIndex + 1 >= this.players.size() ? 0 : this.currentPlayerIndex + 1;
 	}
+
+
 
 }

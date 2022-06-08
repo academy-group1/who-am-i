@@ -1,39 +1,41 @@
 package com.eleks.academy.whoami.repository.impl;
 
+import com.eleks.academy.whoami.core.SynchronousGame;
+import com.eleks.academy.whoami.repository.GameRepository;
+import org.springframework.stereotype.Repository;
+
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-import org.springframework.stereotype.Repository;
-
-import com.eleks.academy.whoami.core.Game;
-import com.eleks.academy.whoami.repository.GameRepository;
-
 @Repository
 public class GameInMemoryRepository implements GameRepository {
 
-	private final Map<String, Game> games = new ConcurrentHashMap<>();
+	private final Map<String, SynchronousGame> games = new ConcurrentHashMap<>();
 
 	@Override
-	public Stream<Game> findAllAvailable(String player) {
-		Predicate<Game> freeToJoin = Game::isAvailable;
+	public Stream<SynchronousGame> findAllAvailable(String player) {
+		Predicate<SynchronousGame> freeToJoin = SynchronousGame::isAvailable;
 
-		Predicate<Game> playersGame = game -> game.hasPlayer(player);
+		Predicate<SynchronousGame> playersGame = game ->
+				game.findPlayer(player).isPresent();
 
-		return this.games.values().stream().filter(freeToJoin.or(playersGame));
+		return this.games.values()
+				.stream()
+				.filter(freeToJoin.or(playersGame));
 	}
 
 	@Override
-	public Game save(Game game) {
+	public SynchronousGame save(SynchronousGame game) {
 		this.games.put(game.getId(), game);
 
 		return game;
 	}
 
 	@Override
-	public Optional<Game> findById(String id) {
+	public Optional<SynchronousGame> findById(String id) {
 		return Optional.ofNullable(this.games.get(id));
 	}
 

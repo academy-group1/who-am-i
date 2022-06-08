@@ -4,7 +4,7 @@ info:
   title: Who am I?
   description: Rest Api description
 servers:
-  - url: http://localhost:8090/api/v1	  
+  - url: http://localhost:8090/api/v1
 paths:
   /games:
     get:
@@ -17,7 +17,7 @@ paths:
           name: X-Player
           required: true
           schema:
-            type: string               
+            type: string
       responses:
         '200':
           description: Returns a list of available games
@@ -37,7 +37,7 @@ paths:
           name: X-Player
           required: true
           schema:
-            type: string  
+            type: string
       requestBody:
         description: Model for game creation
         required: true
@@ -103,7 +103,7 @@ paths:
             application/json:
               schema:
                 type: object
-                $ref: '#/components/schemas/GameDetails'              
+                $ref: '#/components/schemas/GameDetails'
   /games/{id}/players:
     post:
       tags:
@@ -154,7 +154,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CharacterSuggestion'      
+              $ref: '#/components/schemas/CharacterSuggestion'
       responses:
         '200':
           description: No response data in case succesful request
@@ -208,7 +208,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Message'      
+              $ref: '#/components/schemas/Message'
       responses:
         '200':
           description: No response data in case succesful request
@@ -236,7 +236,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Message'      
+              $ref: '#/components/schemas/Message'
       responses:
         '200':
           description: No response data in case succesful request
@@ -264,13 +264,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Message'      
+              $ref: '#/components/schemas/Message'
       responses:
         '200':
-          description: No response data in case succesful request                                                                           
-    
+          description: No response data in case succesful request
+
 #  ----- Components  ----------------------------------------           
-components:                 
+components:
   schemas:
     GameLight:
       type: object
@@ -278,9 +278,9 @@ components:
         id:
           type: string
         status:
-            type: string
+          type: string
         playersInGame:
-            type: string
+          type: string
     NewGameRequest:
       type: object
       properties:
@@ -310,7 +310,7 @@ components:
           $ref: '#/components/schemas/QuestionAnswer'
         state:
           type: object
-          $ref: '#/components/schemas/PlayerState'            
+          $ref: '#/components/schemas/PlayerState'
     SynchronousPlayer:
       type: object
       properties:
@@ -337,14 +337,14 @@ components:
       type: object
       properties:
         message:
-          type: string                        
-#  ---- Enums section  ----------------------------------------            
+          type: string
+    #  ---- Enums section  ----------------------------------------
     QuestionAnswer:
       type: string
       enum:
         - "YES"
         - "NO"
-        - NOT_SURE     
+        - NOT_SURE
     PlayerState:
       type: string
       enum:
@@ -352,4 +352,4 @@ components:
         - READY
         - ASKING
         - ANSWERING
-        - FINISHED              
+        - FINISHED
