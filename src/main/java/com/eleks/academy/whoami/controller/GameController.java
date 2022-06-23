@@ -95,4 +95,13 @@ public class GameController {
 
 	}
 
+	@PostMapping("/home")
+	public void homePage(){
+		this.gameService.homePage();
+	}
+
+	@PostMapping("/waiting-screen")
+	public void waitingScreen(){
+		this.gameService.waitingScreen();
+	}
 }

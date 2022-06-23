@@ -30,7 +30,7 @@ class ClientPlayerIT {
 
 			new Thread(() -> {
 				try (Socket client = new Socket(localHost, port);
-						PrintWriter writer = new PrintWriter(client.getOutputStream())) {
+					 PrintWriter writer = new PrintWriter(client.getOutputStream())) {
 					writer.println("test character");
 					writer.flush();
 					clientReady.countDown();
@@ -41,7 +41,7 @@ class ClientPlayerIT {
 			}).start();
 
 			try (Socket client = server.accept();
-					ClientPlayer player = new ClientPlayer(client)) {
+				 ClientPlayer player = new ClientPlayer(client)) {
 				// TODO: refactor test to always fail after 5 seconds
 				boolean success = clientReady.await(5, TimeUnit.SECONDS);
 				assertTrue(success);
@@ -64,7 +64,7 @@ class ClientPlayerIT {
 
 			new Thread(() -> {
 				try (Socket client = new Socket(localHost, port);
-						PrintWriter writer = new PrintWriter(client.getOutputStream())) {
+					 PrintWriter writer = new PrintWriter(client.getOutputStream())) {
 					clientReady.countDown();
 					writer.println("Player");
 					writer.flush();
@@ -78,11 +78,11 @@ class ClientPlayerIT {
 			}).start();
 
 			try (Socket client = server.accept();
-					ClientPlayer player = new ClientPlayer(client)) {
+				 ClientPlayer player = new ClientPlayer(client)) {
 				// TODO: refactor test to always fail after 5 seconds
 				boolean success = clientReady.await(5, TimeUnit.SECONDS);
 				assertTrue(success);
-				String character = player.getName().get(5, TimeUnit.SECONDS);
+				String character = player.getName();
 				assertEquals("Player", character);
 				nameAppeared.countDown();
 			}

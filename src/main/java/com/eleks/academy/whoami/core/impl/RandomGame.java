@@ -16,7 +16,7 @@ public class RandomGame implements Game {
 	private static final int DURATION = 2;
 	private static final TimeUnit UNIT = TimeUnit.MINUTES;
 
-	private final Map<String, String> playersCharacter = new ConcurrentHashMap<>();
+	private final Map<String, String> playersCharacter = new ConcurrentHashMap<String, String>();
 	private final List<Player> players;
 	private final List<String> availableCharacters;
 	private Turn currentTurn;
@@ -51,9 +51,10 @@ public class RandomGame implements Game {
 		Player currentGuesser = currentTurn.getGuesser();
 		Set<String> answers;
 
-		String guessersName = currentGuesser.getName();
-
 		try {
+
+			String guessersName = currentGuesser.getName();
+
 			if (currentGuesser.isReadyForGuess().get()) {
 				String guess = currentGuesser.getGuess().get();
 				answers = currentTurn.getOtherPlayers().stream()

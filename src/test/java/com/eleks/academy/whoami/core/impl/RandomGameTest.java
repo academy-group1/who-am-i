@@ -34,7 +34,7 @@ class RandomGameTest {
 
 		@Override
 		public String getName() {
-			return name;
+			return this.name;
 		}
 
 		@Override
@@ -71,9 +71,9 @@ class RandomGameTest {
 		@Override
 		public void close() {
 			// TODO Auto-generated method stub
-			
+
 		}
-		
+
 	}
 
 }

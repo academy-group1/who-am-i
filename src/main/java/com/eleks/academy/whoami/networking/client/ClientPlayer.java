@@ -25,14 +25,7 @@ public class ClientPlayer implements Player, AutoCloseable {
 
 	@Override
 	public String getName() {
-		// TODO: save name for future
-		try {
-			return executor.submit(this::askName).get();
-		} catch (InterruptedException e) {
-			throw new RuntimeException(e);
-		} catch (ExecutionException e) {
-			throw new RuntimeException(e);
-		}
+			return this.askName();
 	}
 
 	private String askName() {
@@ -163,7 +156,7 @@ public class ClientPlayer implements Player, AutoCloseable {
 		close(reader);
 		close(socket);
 	}
-	
+
 	private void close(AutoCloseable closeable) {
 		try {
 			closeable.close();

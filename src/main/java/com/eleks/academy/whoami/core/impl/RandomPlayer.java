@@ -15,7 +15,7 @@ public class RandomPlayer implements Player {
 	private final Collection<String> characterPool;
 	private final List<String> availableQuestions;
 	private final List<String> availableGuesses;
-	
+
 	public RandomPlayer(String name, Collection<String> characterPool, List<String> availableQuestions, List<String> availableGuesses) {
 		this.name = name;
 		this.characterPool = Objects.requireNonNull(characterPool);
@@ -72,9 +72,9 @@ public class RandomPlayer implements Player {
 	@Override
 	public void close() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	
-	
+
+
 }
