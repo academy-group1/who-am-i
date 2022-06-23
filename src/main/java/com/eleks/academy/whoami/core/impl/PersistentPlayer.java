@@ -24,8 +24,8 @@ public class PersistentPlayer implements Player, SynchronousPlayer {
 	}
 
 	@Override
-	public Future<String> getName() {
-		return CompletableFuture.completedFuture(this.name);
+	public String getName() {
+		return this.name;
 	}
 
 	@Override

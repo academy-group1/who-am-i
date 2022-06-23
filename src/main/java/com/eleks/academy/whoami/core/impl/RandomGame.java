@@ -16,7 +16,7 @@ public class RandomGame implements Game {
 	private static final int DURATION = 2;
 	private static final TimeUnit UNIT = TimeUnit.MINUTES;
 
-	private final Map<Future<String>, String> playersCharacter = new ConcurrentHashMap<Future<String>, String>();
+	private final Map<String, String> playersCharacter = new ConcurrentHashMap<String, String>();
 	private final List<Player> players;
 	private final List<String> availableCharacters;
 	private Turn currentTurn;
@@ -53,7 +53,7 @@ public class RandomGame implements Game {
 
 		try {
 
-			String guessersName = currentGuesser.getName().get();
+			String guessersName = currentGuesser.getName();
 
 			if (currentGuesser.isReadyForGuess().get()) {
 				String guess = currentGuesser.getGuess().get();

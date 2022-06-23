@@ -24,14 +24,29 @@ public class GameTimer {
                 if(sec == 60){
                     min ++;
                     sec = 0;
-                    setTime(min + ":" + sec);
+                    if(min < 10){
+                        setTime("0" + min + ":" + sec + "0");
+                    }else{
+                        setTime(min + ":" + sec + "0");
+                    }
                     sec++;
-                }else if(min == 0 && sec == 20){
-                    System.out.println("Time of");
-                    isRunning = false;
-                }else
-                {
+                }else if(min == 99 && sec == 59){
                     setTime(min + ":" + sec);
+                    isRunning = false;
+                }else {
+                    if(min < 10){
+                        if(sec < 10) {
+                            setTime("0" + min + ":" + sec + "0");
+                        }else{
+                            setTime("0" + min + ":" + sec);
+                        }
+                    }else{
+                        if(sec < 10) {
+                            setTime(min + ":" + sec + "0");
+                        }else{
+                            setTime(min + ":" + sec);
+                        }
+                    }
                     sec++;
                 }
                 if(isRunning == false){

@@ -24,8 +24,8 @@ public class ClientPlayer implements Player, AutoCloseable {
 	}
 
 	@Override
-	public Future<String> getName() {
-			return executor.submit(this::askName);
+	public String getName() {
+			return this.askName();
 	}
 
 	private String askName() {

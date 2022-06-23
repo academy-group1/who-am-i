@@ -5,9 +5,7 @@ import com.eleks.academy.whoami.core.SynchronousPlayer;
 import com.eleks.academy.whoami.core.impl.PersistentGame;
 import com.eleks.academy.whoami.model.request.CharacterSuggestion;
 import com.eleks.academy.whoami.model.request.NewGameRequest;
-import com.eleks.academy.whoami.model.response.GameDetails;
-import com.eleks.academy.whoami.model.response.GameLight;
-import com.eleks.academy.whoami.model.response.TurnDetails;
+import com.eleks.academy.whoami.model.response.*;
 import com.eleks.academy.whoami.repository.GameRepository;
 import com.eleks.academy.whoami.service.GameService;
 import lombok.RequiredArgsConstructor;
@@ -88,6 +86,16 @@ public class GameServiceImpl implements GameService {
 	@Override
 	public void answerQuestion(String id, String player, String answer) {
 
+	}
+
+	@Override
+	public void homePage(){
+		Home home = new Home();
+	}
+
+	@Override
+	public void waitingScreen(){
+		WaitingScreen waitingScreen = new WaitingScreen();
 	}
 
 }

@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Home {
     private QuickGame quickGame;
+    private WaitingScreen waitingScreen;
     private int countOnlinePlayers = 0;
 
     public String getPlayerWithOnline(){
@@ -21,7 +22,7 @@ public class Home {
         return playersOnline;
     }
 
-    public void play(){
+    public void playQuickGame(){
         this.countOnlinePlayers++;
         this.quickGame.play();
     }

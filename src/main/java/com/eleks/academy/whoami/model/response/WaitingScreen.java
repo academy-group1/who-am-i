@@ -1,6 +1,7 @@
 package com.eleks.academy.whoami.model.response;
 
 import com.eleks.academy.whoami.controller.GameController;
+import com.eleks.academy.whoami.core.impl.PersistentGame;
 import com.eleks.academy.whoami.model.request.Message;
 import com.eleks.academy.whoami.model.request.NewGameRequest;
 import com.eleks.academy.whoami.utils.GameTimer;
@@ -31,19 +32,18 @@ public class WaitingScreen {
     }
 
     public void leaveGame(){
-        timer.setRunning(false);
+        this.timer.setRunning(false);
         countWaitingPlayers--;
     }
 
-    public String getTimer(){
-        return timer.getTime();
+    public String getTime(){
+        return this.timer.getTime();
     }
 
-    private int countPlayers(){
+    private void countPlayers(){
         countWaitingPlayers++;
-        if(countWaitingPlayers > newGameRequest.getMaxPlayers() - 1){
+        if(countWaitingPlayers > this.newGameRequest.getMaxPlayers()){
             countWaitingPlayers = 1;
         }
-        return countWaitingPlayers;
     }
 }
